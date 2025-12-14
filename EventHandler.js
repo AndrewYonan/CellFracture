@@ -1,16 +1,29 @@
 
 
-function init_event_handlers(canvas) {
+function init_event_handlers(canvas, polygon) {
 
     canvas.addEventListener("click", (evt) => {
 
+        if (CUTS >= MAX_CUTS) return;
+
         if (CUT_IN_PROGRESS) {
-            INTERACTIVE_CUTS.push(new InteractiveCut(CUT_START_POINT, MOUSE_LOC));
+
+            const cut = new InteractiveCut(CUT_START_POINT, MOUSE_LOC);
+
+            CUT_FRAME = new CutFrame(cut, polygon);
+            INTERACTIVE_CUTS.push(cut);
             CUT_IN_PROGRESS = false;
+            CUTS++;
+
+            console.log(CUT_FRAME);
+            
+            
         }
         else {
+
             CUT_START_POINT = MOUSE_LOC;
             CUT_IN_PROGRESS = true;
+
         }
 
     });

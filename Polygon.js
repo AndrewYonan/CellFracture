@@ -1,11 +1,38 @@
 class Polygon {
 
     constructor(point_vecs) {
+        
         this.point_vecs = point_vecs;
+
+        if (this.point_vecs.length < 3) {
+            console.log("WARNING - degenerate polygon with < 3 vertices");
+        }
+
+    }
+
+    get_line_segs() {
+
+        let segs = [];
+
+        for (let i = 0; i < this.point_vecs.length - 1; ++i) {
+
+            const p1 = this.point_vecs[i];
+            const p2 = this.point_vecs[i + 1];
+
+            segs.push(new Line(p1, p2));
+        }
+
+        const first = this.point_vecs[0];
+        const last = this.point_vecs[this.point_vecs.length - 1];
+
+        segs.push(new Line(last, first));
+
+        return segs;
     }
 
     draw(ctx) {
 
+        ctx.lineWidth = 1;
         ctx.strokeStyle = "black";
         ctx.beginPath();
 

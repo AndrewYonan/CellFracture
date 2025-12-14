@@ -4,6 +4,7 @@ class InteractiveCut {
         this.p2 = p2;
     }
     draw(ctx) {
+        ctx.lineWidth = 1;
         ctx.strokeStyle = "red";
         ctx.beginPath();
         ctx.moveTo(this.p1.x, this.p1.y);

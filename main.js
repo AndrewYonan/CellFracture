@@ -6,17 +6,18 @@ const PI = 3.1415;
 const ctx = build_canvas(canvas, adaptive_res=true);
 const frame_rate = 60;
 const iterator = setInterval(frame, 1000 / frame_rate);
-let MOUSE_LOC = null;
+const MAX_CUTS = 1;
+const poly1 = Polygon.generate_hard_polygon();
+
+let CUTS = 0;
 let CUT_START_POINT = null;
 let CUT_IN_PROGRESS = false;
 let INTERACTIVE_CUTS = [];
-const poly1 = Polygon.generate_hard_polygon();
-
-init_event_handlers(canvas);
-
+let MOUSE_LOC = null;
+let CUT_FRAME = null;
 
 
-// USE VECTOR PARAMETREZATIONS FOR LINES !!!!!! NOT SLOPES. NEED THE ABILITY TO CUT VERTICALLY.
+init_event_handlers(canvas, poly1);
 
 
 function frame() {
@@ -32,6 +33,18 @@ function frame() {
     for (const IC of INTERACTIVE_CUTS) {
         IC.draw(ctx);
     }
+
+
+    if (CUT_FRAME) {
+        CUT_FRAME.show_POIs();
+    }
+
+}
+
+
+
+function create_cut_frame(polygon, cut) {
+    return new CutFrame(polygon, cut);
 }
 
 
