@@ -33,4 +33,7 @@ class Vector2 {
     mag() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
+    equals(vec) {
+        return (this.x == vec.x) && (this.y == vec.y);
+    }
 }

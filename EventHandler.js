@@ -38,6 +38,11 @@ function init_event_handlers(canvas, polygon) {
                 console.log("CUT!");    
             }
         }
+        if (evt.key == "r") {
+            CUTS = 0;
+            INTERACTIVE_CUTS = [];
+            CUT_FRAME = null;
+        }
     });
 }
 

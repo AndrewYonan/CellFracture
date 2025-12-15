@@ -43,6 +43,7 @@ class Polygon {
 
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
+            ctx.arc(p2.x, p2.y, 5, 0, PI*2);
 
         }
 
@@ -51,6 +52,7 @@ class Polygon {
 
         ctx.moveTo(last.x, last.y);
         ctx.lineTo(first.x, first.y);
+        ctx.arc(first.x, first.y, 5, 0, PI*2);
 
         ctx.stroke();
     }

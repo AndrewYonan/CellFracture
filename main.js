@@ -36,7 +36,7 @@ function frame() {
 
 
     if (CUT_FRAME) {
-        CUT_FRAME.show_POIs();
+        CUT_FRAME.polygon_graph.DFS_draw(poly1.point_vecs[poly1.point_vecs.length - 1]);
     }
 
 }
@@ -48,6 +48,33 @@ function create_cut_frame(polygon, cut) {
 }
 
 
+
+function graphics_line(vec1, vec2) {
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "blue";
+    ctx.beginPath();
+    ctx.moveTo(vec1.x, vec1.y);
+    ctx.lineTo(vec2.x, vec2.y);
+    ctx.stroke();
+}
+
+function graphics_node_black(vec) {
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 4;
+    circle(vec.x, vec.y, 15);
+}
+
+function graphics_node_red(vec) {
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 4;
+    circle(vec.x, vec.y, 15);   
+}
+
+function graphics_POI_node(vec) {
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = 2;
+    circle(vec.x, vec.y, 15);
+}
 
 function circle(x, y, r) {
     ctx.beginPath();
