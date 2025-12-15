@@ -7,7 +7,32 @@ class CutFrame {
         this.polygon_graph = new PolygonGraph(polygon);
         this.adjoin_POIs();
         this.polygon_graph.partition_nodes_by_line(cut);
+        this.result_frags = [];
+        this.generate_result_frags();
 
+    }
+
+    generate_result_frags() {
+
+        const start = this.polygon_graph.nodes[0];
+        this.result_frags = this.polygon_graph.generate_frags(start);
+
+        const idx = 1;
+        console.log(this.result_frags[idx])
+        this.draw_result_frag(this.result_frags[idx]);
+
+    }
+
+
+    draw_result_frag(frag) {
+        
+        ctx.lineWidth = 10;
+
+        for (let i = 0; i < frag.length - 1; ++i) {
+            graphics_line(frag[i].vec, frag[i + 1].vec);
+        }
+
+        graphics_line(frag[frag.length - 1].vec, frag[0].vec);
     }
 
     adjoin_POIs() {

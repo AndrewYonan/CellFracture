@@ -14,8 +14,7 @@ function init_event_handlers(canvas, polygon) {
             INTERACTIVE_CUTS.push(cut);
             CUT_IN_PROGRESS = false;
             CUTS++;
-
-            console.log(CUT_FRAME);
+            PAUSED = true;
             
             
         }
@@ -42,6 +41,7 @@ function init_event_handlers(canvas, polygon) {
             CUTS = 0;
             INTERACTIVE_CUTS = [];
             CUT_FRAME = null;
+            PAUSED = false;
         }
     });
 }

@@ -53,6 +53,14 @@ class PolygonGraph {
         }
     }
 
+    set_all_POI_nodes_unvisited() {
+        for (let i = 0; i < this.nodes.length; ++i) {
+            if (this.nodes[i].is_POI) {
+                this.nodes[i].visited = false;
+            }
+        }
+    }
+
     partition_nodes_by_line(line) {
 
         for (let i = 0; i < this.nodes.length; ++i) {
@@ -64,6 +72,63 @@ class PolygonGraph {
             else this.nodes[i].partition = 1;
         }
     }
+
+    generate_frags() {
+
+        let frags = [];
+        const start_node = this.nodes[0];
+
+        if (start_node.is_POI) {
+            console.log("WARNING : start node in find_frags() is POI");
+        }
+
+        this.set_all_unvisited();
+
+        for (let i = 0; i < this.nodes.length; ++i) {
+
+            if (!this.nodes[i].visited) {
+
+                const frag = this.generate_frag(this.nodes[i]);
+                frags.push(frag);
+            }   
+        }
+
+        return frags;
+
+    }
+
+    generate_frag(start_node) {
+
+        if (start_node.is_POI) {
+            console.log("WARNING : start node in generate_frag() is POI");
+        }
+
+        let frag_nodes = [];
+        this.set_all_POI_nodes_unvisited();
+        this.generate_frag_helper(start_node, frag_nodes, start_node.partition);
+
+        return frag_nodes;
+
+    }
+
+
+    generate_frag_helper(node, frag_nodes, partition_val) {
+
+        node.visited = true;
+        frag_nodes.push(node);
+
+
+        for (let i = 0; i < node.adj_nodes.length; ++i) {
+
+            let adj_node = node.adj_nodes[i];
+
+            if (!adj_node.visited && (adj_node.isPOI || adj_node.partition == partition_val)) {
+                this.generate_frag_helper(adj_node, frag_nodes, partition_val);
+            }
+        }
+    }
+
+
 
     DFS_draw(start_vec) {
         

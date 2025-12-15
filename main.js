@@ -15,6 +15,7 @@ let CUT_IN_PROGRESS = false;
 let INTERACTIVE_CUTS = [];
 let MOUSE_LOC = null;
 let CUT_FRAME = null;
+let PAUSED = false;
 
 
 init_event_handlers(canvas, poly1);
@@ -22,9 +23,8 @@ init_event_handlers(canvas, poly1);
 
 function frame() {
 
-    ctx.clearRect(0, 0, W, H);
-
-    poly1.draw(ctx);
+    if (!PAUSED) ctx.clearRect(0, 0, W, H);
+    if (!PAUSED) poly1.draw(ctx);
 
     if (CUT_IN_PROGRESS) {
         draw_in_progress_cut(ctx);
@@ -50,7 +50,6 @@ function create_cut_frame(polygon, cut) {
 
 
 function graphics_line(vec1, vec2) {
-    ctx.lineWidth = 2;
     ctx.strokeStyle = "blue";
     ctx.beginPath();
     ctx.moveTo(vec1.x, vec1.y);
